@@ -1,0 +1,4 @@
+.vagrant
+output-virtualbox
+packer_cache
+*.box
