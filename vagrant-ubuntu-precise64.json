@@ -36,6 +36,7 @@
       "type": "shell",
       "scripts": [
         "scripts/vagrant-user.sh",
+        "scripts/vagrant-ubuntu-update.sh",
         "scripts/vagrant-ubuntu.sh",
         "scripts/vagrant-sshkey.sh",
         "scripts/virtualbox-guest-additions.sh"

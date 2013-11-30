@@ -27,6 +27,7 @@
     {
       "type": "shell",
       "scripts": [
+        "scripts/vagrant-centos-update.sh",
         "scripts/vagrant-centos.sh",
         "scripts/vagrant-sshkey.sh",
         "scripts/virtualbox-guest-additions.sh"
