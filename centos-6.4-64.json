@@ -29,10 +29,15 @@
       "scripts": [
         "scripts/vagrant-centos.sh",
         "scripts/vagrant-sshkey.sh",
-        "scripts/guest-additions.sh"
+        "scripts/virtualbox-guest-additions.sh"
       ],
       "execute_command": "echo 'vagrant'|sudo -S sh '{{ .Path }}'"
     }
   ],
-  "post-processors": ["vagrant"]
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "centos-6.4_64.box"
+    }
+  ]
 }

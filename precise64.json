@@ -2,8 +2,9 @@
   "builders": [
     {
       "type": "virtualbox",
-      "guest_os_type": "Ubuntu_64",
+      "virtualbox_version_file": ".vbox_version",
       "vm_name": "precise64",
+      "guest_os_type": "Ubuntu_64",
       "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.3-server-amd64.iso",
       "iso_checksum": "2cbe868812a871242cdcdd8f2fd6feb9",
       "iso_checksum_type": "md5",
@@ -35,12 +36,17 @@
       "type": "shell",
       "scripts": [
         "scripts/vagrant-user.sh",
-        "scripts/vagrant-sshkey.sh",
         "scripts/vagrant-ubuntu.sh",
-        "scripts/guest-additions.sh"
+        "scripts/vagrant-sshkey.sh",
+        "scripts/virtualbox-guest-additions.sh"
       ],
       "execute_command": "echo 'vagrant' | sudo -S sh '{{ .Path }}'"
     }
   ],
-  "post-processors": ["vagrant"]
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "precise64.box"
+    }
+  ]
 }
