@@ -1,18 +1,6 @@
 {
   "builders": [
     {
-      "type": "virtualbox",
-      "virtualbox_version_file": ".vbox_version",
-      "vm_name": "precise64",
-      "guest_os_type": "Ubuntu_64",
-      "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.3-server-amd64.iso",
-      "iso_checksum": "2cbe868812a871242cdcdd8f2fd6feb9",
-      "iso_checksum_type": "md5",
-      "http_directory": "http",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "ssh_wait_timeout": "20m",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic ",
@@ -25,15 +13,43 @@
         "initrd=/install/initrd.gz -- <enter>"
       ],
       "boot_wait": "4s",
+      "guest_os_type": "Ubuntu_64",
+      "http_directory": "http",
+      "iso_checksum": "2cbe868812a871242cdcdd8f2fd6feb9",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.3-server-amd64.iso",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "20m",
+      "type": "virtualbox-iso",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "2"]
-      ]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "precise64"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "precise64.box",
+      "type": "vagrant"
     }
   ],
   "provisioners": [
     {
-      "type": "shell",
+      "execute_command": "echo 'vagrant' | sudo -S sh '{{ .Path }}'",
       "scripts": [
         "scripts/vagrant-user.sh",
         "scripts/vagrant-ubuntu-update.sh",
@@ -41,13 +57,8 @@
         "scripts/vagrant-sshkey.sh",
         "scripts/virtualbox-guest-additions.sh"
       ],
-      "execute_command": "echo 'vagrant' | sudo -S sh '{{ .Path }}'"
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "output": "precise64.box"
+      "type": "shell"
     }
   ]
 }
+
